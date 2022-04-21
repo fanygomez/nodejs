@@ -1,0 +1,1 @@
+{"history":["alaska, estados unidos","panamá","méxico","san salvador, san salvador, el salvador"]}

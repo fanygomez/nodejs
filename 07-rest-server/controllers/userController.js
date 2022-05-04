@@ -10,6 +10,18 @@ const getAll = ( req, res = response) => {
     )
 };
 
+const getById = ( req, res = response) => {
+    const { id } = req.params;
+    res.status(200).send(
+        {
+            status:  true,
+            data: { name: "Fany", lastaname:"Gomez"},
+            message: "success"
+        }
+    )
+};
+
+
 const create = (req, res = response) => {
     res.status(201).send(
         {
@@ -21,6 +33,7 @@ const create = (req, res = response) => {
 };
 
 const update = (req, res = response) => {
+    const { id } = req.params;
     res.status(200).send(
         {
             status:  true,
@@ -42,6 +55,7 @@ const remove =  (req, res = response) => {
 
 module.exports = {
     getAll,
+    getById,
     create,
     update,
     remove

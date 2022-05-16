@@ -9,6 +9,7 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.users_routes = '/api/users';
+        this.auth_routes     = '/api/auth';
         // connect DB
         this.connectDB();
         //md -> funcones que se ejecutaran siempre que ejecutemos nuestro server 
@@ -28,6 +29,7 @@ class Server{
     }
     
     routes(){
+        this.app.use( this.auth_routes, require('../routes/auth'))
         this.app.use( this.users_routes , require('../routes/user'))
     }
 

@@ -6,6 +6,7 @@ const { getAll, getById, create , update, remove  } = require('../controllers/us
 //validators
 const { isValidRole, existEmail, existUserById } = require('../helpers/db-validators');
 const { validFields } = require('../middlewares/valid-fields');
+const { validateJWT } = require('../middlewares/validate-jwt');
 
 const route = Router();
 
@@ -30,6 +31,7 @@ route.put('/:id', [
     validFields
 ], update);
 route.delete('/:id',[
+    validateJWT,
     check('id',"No es ID valido").isMongoId(),
     check('id').custom( existUserById),
     validFields

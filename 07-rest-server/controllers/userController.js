@@ -67,10 +67,10 @@ const update = async (req = request, res = response) => {
 
 const remove = async (req = request, res = response) => {
     const { id }= req.params;
-
     // const user = await User.findByIdAndDelete(id);
     const user = await User.findByIdAndUpdate(id, { status: false });
-    res.status(200).send(user);
+    
+    res.status(200).send({user});
 };
 
 module.exports = {

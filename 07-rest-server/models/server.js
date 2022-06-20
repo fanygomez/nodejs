@@ -8,8 +8,11 @@ class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
-        this.users_routes = '/api/users';
-        this.auth_routes     = '/api/auth';
+        this.paths = {
+            auth:       '/api/auth',
+            users:      '/api/users',
+            categories: '/api/categories'
+        };
         // connect DB
         this.connectDB();
         //md -> funcones que se ejecutaran siempre que ejecutemos nuestro server 
@@ -29,8 +32,9 @@ class Server{
     }
     
     routes(){
-        this.app.use( this.auth_routes, require('../routes/auth'))
-        this.app.use( this.users_routes , require('../routes/user'))
+        this.app.use( this.paths.auth, require('../routes/auth'))
+        this.app.use( this.paths.users , require('../routes/user'))
+        this.app.use( this.paths.categories , require('../routes/category'))
     }
 
     listener(){

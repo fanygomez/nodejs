@@ -23,7 +23,7 @@ const roleBasedUserAuth = ( ...roles)=>{
                 msg: 'Se quiere verificar el role sin validar el token primero'
             });
         }
-        if( !roles.includes( req.user)){
+        if( !roles.includes( req.user.role)){
             return res.status(401).json({
                 msg: "No tienes permisos para realizar esta solicitud"
             });

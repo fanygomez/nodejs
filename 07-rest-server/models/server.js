@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors');
 const { dbConnection } = require('../database/config');
 const { validFields } = require('../middlewares/valid-fields');
+const fileUpload = require('express-fileupload');
 
 class Server{
     constructor(){
@@ -32,6 +33,12 @@ class Server{
         this.app.use(express.json());
         //
         this.app.use(validFields);
+        //file uploads
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir:'/tmp/',
+            createParentPath: true//create folder if not exists
+        }))
     }
     
     routes(){

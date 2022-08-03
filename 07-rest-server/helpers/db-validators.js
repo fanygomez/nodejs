@@ -48,4 +48,12 @@ const existProductById = async (id) => {
     }
   };
 
-module.exports = { isValidRole, existEmail, existUserById, existCategory, existCategoryById, existProductById}
+const collectionsAllowed = async (collection = '', collections = []) => {
+    const include = collections.includes(collection);
+    if (!include) {
+        throw new Error(`La collection no es permitida ${collection}`);
+    }
+    return true;
+}
+
+module.exports = { isValidRole, existEmail, existUserById, existCategory, existCategoryById, existProductById, collectionsAllowed}

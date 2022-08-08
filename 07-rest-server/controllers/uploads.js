@@ -72,7 +72,45 @@ const updateFile = async (request, res = response) => {
             .json({ message: "Ocurrio un error al procesar la solicitud", error });
     }
 };
+
+const getFile = async (request, res = response) => {
+    const { id, collection } = request.params;
+        let model;
+        switch (collection) {
+            case "users":
+                model = await User.findById(id);
+                if (!model) {
+                    return res.status(400).json({
+                        msg: `No existe un usuario con el id ${id}`,
+                    });
+                }
+
+                break;
+
+            case "products":
+                model = await Product.findById(id);
+                if (!model) {
+                    return res.status(400).json({
+                        msg: `No existe un producto con el id ${id}`,
+                    });
+                }
+
+                break;
+
+            default:
+                return res.status(500).json({ msg: "Se me olvidó validar esto" });
+        }
+        if (model.img) {
+            if (fs.existsSync(model.img)) {
+               return res.sendFile(model.img)
+            }
+        }
+
+        const pathImagen = path.join(__dirname,"../assets/images/no-image.jpg");
+        return res.sendFile(pathImagen)
+}
 module.exports = {
     uploadFile,
     updateFile,
+    getFile
 };
